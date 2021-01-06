@@ -14,12 +14,15 @@ public class NewNote extends JFrame {
     JSpinner fontSizeSpinner;
     JComboBox fontBox;
     JFrame note;
+    JPanel notePanel;
+    JPanel lowerButtonsPanel;
+    JPanel textPanel;
     JTextArea noteTextArea;
     JMenuBar noteMenuBar;
-    JMenu file;
+    JButton saveAs;
+    JButton cancel;
     JMenu textEditor;
     JMenu style;
-    JMenuItem saveAs;
     JMenuItem open;
     JMenuItem bColor;
     JMenuItem textColor;
@@ -31,8 +34,11 @@ public class NewNote extends JFrame {
         this.setLayout(new FlowLayout());
         note = new JFrame();
     note.setVisible(true);
-    note.setSize(550,550);
+    note.setSize(570,570);
+    notePanel = new JPanel();
+    textPanel = new JPanel();
     noteTextArea = new JTextArea();
+
     noteTextArea.setSize(500,500);
     noteTextArea.setLineWrap(true);
     noteTextArea.setWrapStyleWord(true);
@@ -51,12 +57,20 @@ public class NewNote extends JFrame {
         }
     });
     noteMenuBar = new JMenuBar();// main menu ---  new Note
-        file = new JMenu("File");
-    file.setToolTipText("Save as, import..");
-    saveAs = new JMenuItem("Save As");
+    saveAs = new JButton("Save As");
+    cancel = new JButton("Cancel");
+    cancel.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(e.getSource()== cancel){
+                System.exit(0);
+            }
+        }
+    });
+    lowerButtonsPanel = new JPanel();
+    lowerButtonsPanel.add(saveAs,BorderLayout.PAGE_END);
+    lowerButtonsPanel.add(cancel,BorderLayout.PAGE_END);
     open = new JMenuItem("Open");
-    file.add(saveAs);
-    file.add(open);
     textEditor = new JMenu("Text Editor");
     bColor = new JMenuItem("Background Color"); ///items
     textColor = new JMenuItem("Text Color");
@@ -68,7 +82,7 @@ public class NewNote extends JFrame {
                JColorChooser textColorChooser = new JColorChooser();
                colors = textColorChooser.showDialog(null, "Choose color", Color.BLACK);
            }
-           noteTextArea.setForeground(colors);  /// ask esther!!!
+           noteTextArea.setForeground(colors);
        }
    });
    bColor.addActionListener(new ActionListener() {
@@ -91,20 +105,21 @@ public class NewNote extends JFrame {
         }
        }
    });
-
-
+   style = new JMenu("Style");
    textEditor.add(bColor);
    textEditor.add(textColor);
-   style = new JMenu("Style");
-    noteMenuBar.add(file);
-    noteMenuBar.add(style);
-    noteMenuBar.add(textEditor);
-    noteMenuBar.add(fontBox);
-    noteMenuBar.add(fontSizeSpinner);
-    note.add(noteMenuBar);
+   noteMenuBar.add(style);
+   noteMenuBar.add(textEditor);
+   noteMenuBar.add(fontBox);
+   noteMenuBar.add(fontSizeSpinner);
+   notePanel.add(noteMenuBar);
+
+   note.add(notePanel,BorderLayout.PAGE_START);
+   note.add(textPanel,BorderLayout.CENTER);
+   note.add(lowerButtonsPanel,BorderLayout.PAGE_END);
+   note.add(scrollPane,BorderLayout.EAST);
     note.setJMenuBar(noteMenuBar);
-    note.add(scrollPane);
-    this.setLocationRelativeTo(null);
+    ///this.setLocationRelativeTo(null);
 
     // end
 

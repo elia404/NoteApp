@@ -13,11 +13,9 @@ public class MainMenu extends JFrame  {
         mainMenu.setVisible(true);
         JMenu add = new JMenu("Add");
         add.setToolTipText("New Note");
-        JMenu upload = new JMenu("Upload");
         JMenu myArea = new JMenu("My Area");
         JMenu sharedOnes = new JMenu("Shared Ones"); /// main menu buttons
         mainMenu.add(add);
-        mainMenu.add(upload);
         mainMenu.add( myArea);
         mainMenu.add(sharedOnes);
         JMenuItem newNote = new JMenuItem("New Note"); /// inside menu buttons
