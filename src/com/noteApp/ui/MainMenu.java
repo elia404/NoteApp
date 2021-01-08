@@ -20,7 +20,7 @@ public class MainMenu extends JFrame  {
         mainMenu.add(sharedOnes);
         JMenuItem newNote = new JMenuItem("New Note"); /// inside menu buttons
         add.add(newNote);
-        this.add(mainMenu, BorderLayout.NORTH);
+        this.add(mainMenu, BorderLayout.PAGE_START);
         this.setLocationRelativeTo(null); // puts the program on the center of the screen
         newNote.addActionListener(new ActionListener() {
             @Override
