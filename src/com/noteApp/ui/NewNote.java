@@ -52,30 +52,9 @@ public class NewNote {
         saveAs.addActionListener(e -> {
             if (e.getSource() == saveAs) {
                 NotesHandler.addNote(noteTextArea.getText());
+                note.setVisible(false);
             }
         });
-//        saveAs.addActionListener(e -> {
-//            if (e.getSource() == saveAs) {
-//                String content = "C:\\Users\\USER\\elia\\notes\\note4.txt";
-//                fileChooser = new JFileChooser();
-//                fileChooser.setDialogTitle("Save");
-//                fileChooser.setCurrentDirectory(new File("C:\\Users\\USER\\elia\\notes"));
-//                int a = fileChooser.showSaveDialog(null);
-//                if (a == JFileChooser.APPROVE_OPTION) {
-//                    File file = fileChooser.getSelectedFile();
-//                    setContent(content, file);
-//                    noteTextArea.append(content);
-//                    closeApp();
-//
-//
-//
-//                }
-//                if (a == JFileChooser.CANCEL_OPTION) {
-//                    System.exit(0);
-//                }
-//
-//            }
-        // });
 
         cancel = new JButton("Cancel");
         cancel.addActionListener(e -> {
@@ -129,25 +108,6 @@ public class NewNote {
         note.setLocationRelativeTo(null);
         note.setVisible(true);
 
-        // end
-
-
-//    public void ReadFile(File file) throws FileNotFoundException {
-//        try {
-//            FileReader fileReader;
-//            fileReader = new FileReader("elia.txt");
-//            Scanner scanFile = new Scanner(fileReader);
-//            String storeContent ="   ";
-//            while (scanFile.hasNextLine()){
-//                String temp = scanFile.nextLine()+"\n";
-//                 storeContent = storeContent+temp;
-//               noteTextArea = new JTextArea(storeContent);
-//
-//
-//        }
-//        } catch (Exception e) {
-//            e.getStackTrace();
-//        }
 
 
     }

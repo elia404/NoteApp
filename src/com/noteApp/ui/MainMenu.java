@@ -10,84 +10,74 @@ import java.util.List;
 class MainMenu extends JFrame {
 
 
-
     public MainMenu() {
         JFrame menuFrame = new JFrame("Welcome Aboard");
-        menuFrame.setSize(550,550);
-        menuFrame.setLayout(new GridLayout(6,3));
+        menuFrame.setSize(500, 500);
+        menuFrame.setLayout(new FlowLayout());
+        JMenuBar menuBar = new JMenuBar();
+//        menuFrame.setLayout(new GridLayout(2,1));
         JPanel upperButtons = new JPanel();
-        upperButtons.setSize(250,200);
+        upperButtons.getPreferredSize();
         JPanel lowerButtonsPanel = new JPanel();
-        lowerButtonsPanel.setSize(200,70);
+        lowerButtonsPanel.getPreferredSize();
         JLabel recentNotes = new JLabel("Recent Notes: ");
         JButton recentNoteButton = new JButton();
         JButton newN = new JButton("New");
+        newN.getPreferredSize();
         newN.setToolTipText("New Note");
         newN.addActionListener(a -> {
-            if(a.getSource()==newN) {
+            if (a.getSource() == newN) {
                 NewNote firstNote = new NewNote();
             }
         });
         JButton myNotes = new JButton("Get Notes");
+        myNotes.getPreferredSize();
         myNotes.addActionListener(e -> {
             if (e.getSource() == myNotes) {
-                List<Note> allNotes=NotesHandler.getAllNotes();
-                for( Note n : allNotes ){
-                    JTextArea textArea = new JTextArea();
-                    JPanel textPanel = new JPanel();
-                    textPanel.setSize(250,100);
-                    GroupLayout groupLayout = new GroupLayout(textPanel);
-                    textPanel.setLayout(groupLayout);
-                    groupLayout.setAutoCreateContainerGaps(true);
-                    groupLayout.setAutoCreateGaps(true);
-                    groupLayout.setHorizontalGroup((groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addGroup(groupLayout.createSequentialGroup()
-                                    .addComponent(textArea))));
-                    groupLayout.setVerticalGroup(groupLayout.createSequentialGroup()
-                            .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                            .addComponent(textArea)));
-                    textArea.setText(n.getText());
-                    menuFrame.add(upperButtons,BorderLayout.NORTH);
-                    menuFrame.add(textPanel,BorderLayout.CENTER);
-                    menuFrame.add(lowerButtonsPanel,BorderLayout.SOUTH);
+                List<Note> allNotes = NotesHandler.getAllNotes();
+
+                for (Note n : allNotes) {
+                    JTextPane textPane = new JTextPane();
+                    textPane.setSize(300,300);
+                    BoxLayout boxLayout = new BoxLayout(textPane,BoxLayout.Y_AXIS);
+                    textPane.setLayout(boxLayout);
+                    textPane.setEditable(false);
+                    textPane.setText(n.getText());
+                    menuFrame.setJMenuBar(menuBar);
+                    menuFrame.add(textPane);
+                    menuFrame.pack();
                     menuFrame.setVisible(true);
-                    }
+                }
             }
         });
         JButton sharedOnes = new JButton("Shared Ones"); /// main frame buttons
-        upperButtons.add(newN);
-        upperButtons.add(myNotes);
-        upperButtons.add(sharedOnes);
+        menuBar.add(newN);
+        menuBar.add(myNotes);
+        menuBar.add(sharedOnes);
+        menuFrame.setJMenuBar(menuBar);
         menuFrame.add(upperButtons, BorderLayout.PAGE_START);
-        menuFrame.add(lowerButtonsPanel,BorderLayout.SOUTH);
+//        menuFrame.add(lowerButtonsPanel, BorderLayout.SOUTH);
         menuFrame.setVisible(true);
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menuFrame.setLocationRelativeTo(null); // puts the program on the center of the screen
 
 
-        List<Note> allNotes=NotesHandler.getAllNotes();
-        for (Note n : allNotes){
-            JTextArea textArea = new JTextArea();
-            JPanel textPanel = new JPanel();
-            textPanel.setSize(250,100);
-            GroupLayout groupLayout = new GroupLayout(textPanel);
-            textPanel.setLayout(groupLayout);
-            groupLayout.setAutoCreateContainerGaps(true);
-            groupLayout.setAutoCreateGaps(true);
-            groupLayout.setHorizontalGroup((groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(groupLayout.createSequentialGroup()
-                            .addComponent(textArea))));
-            groupLayout.setVerticalGroup(groupLayout.createSequentialGroup()
-                    .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(textArea)));
-            textArea.setText(n.getText());
-            menuFrame.add(upperButtons,BorderLayout.NORTH);
-            menuFrame.add(textPanel,BorderLayout.CENTER);
-            menuFrame.add(lowerButtonsPanel,BorderLayout.SOUTH);
+        List<Note> allNotes = NotesHandler.getAllNotes();
+        for (Note n : allNotes) {
+            JTextPane textPane = new JTextPane();
+            textPane.setSize(300,300);
+            BoxLayout boxLayout = new BoxLayout(textPane,BoxLayout.Y_AXIS);
+            textPane.setLayout(boxLayout);
+            textPane.setEditable(false);
+            textPane.setText(n.getText());
+            menuFrame.setJMenuBar(menuBar);
+            menuFrame.add(textPane);
+            menuFrame.pack();
             menuFrame.setVisible(true);
-
         }
     }
-    }
+}
+
+
 
 
