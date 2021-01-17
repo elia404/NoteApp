@@ -7,8 +7,6 @@ import com.noteApp.be.NotesHandler;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.JColorChooser;
 
 
@@ -22,8 +20,6 @@ public class NewNote {
     JTextArea noteTextArea;
     JMenuBar noteMenuBar;
     JButton saveAs;
-    JButton openFile;
-    JFileChooser fileChooser;
     JButton cancel;
     JMenu textEditor;
     JMenu style;
@@ -59,7 +55,7 @@ public class NewNote {
         cancel = new JButton("Cancel");
         cancel.addActionListener(e -> {
             if (e.getSource() == cancel) {
-                System.exit(0);
+                note.setVisible(false);
             }
         });
         lowerButtonsPanel = new JPanel();

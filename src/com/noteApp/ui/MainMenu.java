@@ -22,7 +22,7 @@ class MainMenu extends JFrame {
         lowerButtonsPanel.getPreferredSize();
         JLabel recentNotes = new JLabel("Recent Notes: ");
         JButton recentNoteButton = new JButton();
-        JButton newN = new JButton("New");
+        JButton newN = new JButton("New Note");
         newN.getPreferredSize();
         newN.setToolTipText("New Note");
         newN.addActionListener(a -> {
@@ -35,7 +35,6 @@ class MainMenu extends JFrame {
         myNotes.addActionListener(e -> {
             if (e.getSource() == myNotes) {
                 List<Note> allNotes = NotesHandler.getAllNotes();
-
                 for (Note n : allNotes) {
                     JTextPane textPane = new JTextPane();
                     textPane.setSize(300,300);
