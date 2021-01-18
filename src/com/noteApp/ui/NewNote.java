@@ -1,14 +1,8 @@
 package com.noteApp.ui;
-
-
 import com.noteApp.be.NotesHandler;
-
-
-
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.JColorChooser;
-
 
 public class NewNote {
 
@@ -25,7 +19,6 @@ public class NewNote {
     JMenu style;
     JMenuItem bColor;
     JMenuItem textColor;
-
 
     public NewNote() {
 
@@ -95,16 +88,12 @@ public class NewNote {
         noteMenuBar.add(fontBox);
         noteMenuBar.add(fontSizeSpinner);
         note.setJMenuBar(noteMenuBar);
-
-
         note.add(noteMenuBar, BorderLayout.PAGE_START);
         note.add(noteTextArea, BorderLayout.CENTER);
         note.add(lowerButtonsPanel, BorderLayout.SOUTH);
         note.setSize(500, 500);
         note.setLocationRelativeTo(null);
         note.setVisible(true);
-
-
 
     }
 
