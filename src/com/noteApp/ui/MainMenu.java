@@ -29,61 +29,7 @@ class MainMenu extends JFrame {
         JButton myNotes = new JButton("Get Notes");
         myNotes.getPreferredSize();
         myNotes.addActionListener(e -> {
-                List<Note> allNotes = NotesHandler.getAllNotes();
-                for (Note n : allNotes) {
-                    JTextPane textPane = new JTextPane();
-                    textPane.setSize(300, 300);
-                    BoxLayout boxLayout = new BoxLayout(textPane, BoxLayout.Y_AXIS);
-                    textPane.setLayout(boxLayout);
-                    textPane.setEditable(false);
-                    textPane.setToolTipText(n.getId() + "");
-                    textPane.setText(n.getText());
-                    System.out.println(n.getId());
-                    System.out.println(textPane.getToolTipText());
-                    textPane.addMouseListener(new MouseListener() {
-
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            NotesHandler.getSingleNote(n.getId());
-                            NewNote secondNote = new NewNote();
-                            secondNote.noteTextArea.setText(n.getText());
-                            secondNote.saveAs.addActionListener(e1 -> {
-                                if (e1.getSource() == secondNote.saveAs) {
-                                    NotesHandler.updateNote(n.getId(), secondNote.noteTextArea.getText());
-                                    textPane.setText(secondNote.noteTextArea.getText());
-
-
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-
-                        }
-
-                        @Override
-                        public void mouseReleased(MouseEvent e) {
-
-                        }
-
-                        @Override
-                        public void mouseEntered(MouseEvent e) {
-
-                        }
-
-                        @Override
-                        public void mouseExited(MouseEvent e) {
-
-                        }
-                    });
-
-                    menuFrame.setJMenuBar(menuBar);
-                    menuFrame.add(textPane);
-                    menuFrame.pack();
-                    menuFrame.setVisible(true);
-                }
-
+            textAction(menuFrame, menuBar);
         });
         JButton sharedOnes = new JButton("Shared Ones"); /// main frame buttons
         menuBar.add(newN);
@@ -97,68 +43,68 @@ class MainMenu extends JFrame {
 
     }
 
+    private void textAction(JFrame menuFrame, JMenuBar menuBar) {
+        List<Note> allNotes = NotesHandler.getAllNotes();
+        for (Note n : allNotes) {
+            JTextPane textPane = new JTextPane();
+            textPane.setSize(300, 300);
+            BoxLayout boxLayout = new BoxLayout(textPane, BoxLayout.Y_AXIS);
+            textPane.setLayout(boxLayout);
+            textPane.setEditable(false);
+            textPane.setToolTipText(n.getId() + "");
+            textPane.setText(n.getText());
+            System.out.println(n.getId());
+            System.out.println(textPane.getToolTipText());
+            textPane.addMouseListener(new MouseListener() {
+
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    NotesHandler.getSingleNote(n.getId());
+                    NewNote secondNote = new NewNote();
+                    secondNote.noteTextArea.setText(n.getText());
+                    secondNote.saveAs.addActionListener(e1 -> {
+                        if (e1.getSource() == secondNote.saveAs) {
+                            NotesHandler.updateNote(n.getId(), secondNote.noteTextArea.getText());
+                            textPane.setText(secondNote.noteTextArea.getText());
+
+
+                        }
+                    });
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+
+                }
+            });
+
+            menuFrame.setJMenuBar(menuBar);
+            menuFrame.add(textPane);
+            menuFrame.pack();
+            menuFrame.setVisible(true);
+        }
+    }
+
     private void newNoteAction(JButton newN, java.awt.event.ActionEvent a) {
         if (a.getSource() == newN) {
             NewNote firstNote = new NewNote();
         }
     }
 
-    private void textAction(JButton myNotes, java.awt.event.ActionEvent e) {
-        if (e.getSource() == myNotes) {
-            List<Note> allNotes = NotesHandler.getAllNotes();
-            for (Note n : allNotes) {
-                JTextPane textPane = new JTextPane();
-                textPane.setSize(300, 300);
-                BoxLayout boxLayout = new BoxLayout(textPane, BoxLayout.Y_AXIS);
-                textPane.setLayout(boxLayout);
-                textPane.setEditable(false);
-                textPane.setToolTipText(n.getId() + "");
-                textPane.setText(n.getText());
-                System.out.println(n.getId());
-                System.out.println(textPane.getToolTipText());
-                textPane.addMouseListener(new MouseListener() {
 
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        NotesHandler.getSingleNote(n.getId());
-                        NewNote secondNote = new NewNote();
-                        secondNote.noteTextArea.setText(n.getText());
-                        secondNote.saveAs.addActionListener(e1 -> {
-                            if (e1.getSource() == secondNote.saveAs) {
-                                NotesHandler.updateNote(n.getId(), secondNote.noteTextArea.getText());
-                                textPane.setText(secondNote.noteTextArea.getText());
-
-
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-//                            NotesHandler.getSingleNote(n.getId());
-//                            NewNote secondNote = new NewNote();
-//                            secondNote.noteTextArea.setText(n.getText());
-                    }
-
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-
-                    }
-
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-
-                    }
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-
-                    }
-                });
-
-            }
-
-
-        }
-    }
 }
