@@ -30,5 +30,9 @@ public class  NotesHandler  {
     }
 
 
+    public static void deleteNote(int id){
+       allNotes.remove(id);
+
+    }
 
 }

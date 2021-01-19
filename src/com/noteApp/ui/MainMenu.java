@@ -1,5 +1,4 @@
 package com.noteApp.ui;
-
 import com.noteApp.be.Note;
 import com.noteApp.be.NotesHandler;
 import javax.swing.*;
@@ -61,20 +60,33 @@ class MainMenu extends JFrame {
                 public void mouseClicked(MouseEvent e) {
                     NotesHandler.getSingleNote(n.getId());
                     NewNote secondNote = new NewNote();
+                    JButton deleteButton = new JButton("Delete");
+                    deleteButton.addActionListener(e12 -> {
+                        if(e12.getSource()==deleteButton){
+                            int a = JOptionPane.showConfirmDialog(secondNote.note,"Delete Note? ");
+                            if (a == JOptionPane.YES_OPTION) {
+                                NotesHandler.deleteNote(n.getId());
+                                secondNote.note.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                                secondNote.note.setVisible(false);
+                            }
+
+                        }
+                    });
+                    secondNote.lowerButtonsPanel.add(deleteButton);
                     secondNote.noteTextArea.setText(n.getText());
                     secondNote.saveAs.addActionListener(e1 -> {
                         if (e1.getSource() == secondNote.saveAs) {
                             NotesHandler.updateNote(n.getId(), secondNote.noteTextArea.getText());
                             textPane.setText(secondNote.noteTextArea.getText());
-
-
                         }
                     });
                 }
 
                 @Override
                 public void mousePressed(MouseEvent e) {
+//
 
+//
                 }
 
                 @Override
@@ -83,8 +95,13 @@ class MainMenu extends JFrame {
                 }
 
                 @Override
-                public void mouseEntered(MouseEvent e) {
-
+                public void mouseEntered(MouseEvent ev) {
+//                    if(ev.getSource()==textPane) {
+//                        JPopupMenu popupMenu = new JPopupMenu("PopUp");
+//                        JMenuItem deleteNote = new JMenuItem("Delete?");
+//                        popupMenu.add(deleteNote);
+//                        popupMenu.show(ev.getComponent(),ev.getX(),ev.getY());
+//                    }
                 }
 
                 @Override
