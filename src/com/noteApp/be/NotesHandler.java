@@ -1,27 +1,34 @@
 package com.noteApp.be;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 
 public class  NotesHandler  {
-    static Map<Integer, Note> allNotes = new HashMap<Integer, Note>();
+    static List<Note> allNotes = new ArrayList<>();
 
 
-    public static List<Note> getAllNotes() {
-        return new ArrayList<>(allNotes.values());
+
+    public static  List<Note> getAllNotes() {
+        DataBaseConnection db=new DataBaseConnection();
+        return (List<Note>) db.select();
+
+
 
     }
 
-    public static void getSingleNote(int id) {
-        allNotes.get(id);
+    public static  Note getSingleNote(int id) {
+        DataBaseConnection db = new DataBaseConnection();
+        Note n = db.selectOne();
+        n.setId(id);
+      return n;
     }
 
-    public static void addNote( String text) {
-        Note newNote=new Note(text);
-        allNotes.put(newNote.getId(), newNote);
+    public static void addNote(String text) {
+        DataBaseConnection db = new DataBaseConnection();
+        db.insertNote(text);
+
+
     }
 
     public static void updateNote(int id, String newText) {

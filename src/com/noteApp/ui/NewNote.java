@@ -39,6 +39,7 @@ public class NewNote {
         noteMenuBar = new JMenuBar();// main menu ---  new Note
         saveAs = new JButton("Save @ Close");
         saveAs.addActionListener(e -> {
+
             if (e.getSource() == saveAs) {
                 NotesHandler.addNote(noteTextArea.getText());
                 note.setVisible(false);

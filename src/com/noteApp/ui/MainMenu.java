@@ -44,7 +44,7 @@ class MainMenu extends JFrame {
 
     private void textAction(JFrame menuFrame, JMenuBar menuBar) {
         List<Note> allNotes = NotesHandler.getAllNotes();
-        for (Note n : allNotes) {
+        for (Note n: allNotes) {
             JTextPane textPane = new JTextPane();
             textPane.setSize(300, 300);
             BoxLayout boxLayout = new BoxLayout(textPane, BoxLayout.Y_AXIS);
