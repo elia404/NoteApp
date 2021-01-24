@@ -5,14 +5,11 @@ import java.util.List;
 
 
 public class  NotesHandler  {
-    static List<Note> allNotes = new ArrayList<>();
-
 
 
     public static  List<Note> getAllNotes() {
         DataBaseConnection db=new DataBaseConnection();
         return (List<Note>) db.select();
-
 
 
     }
