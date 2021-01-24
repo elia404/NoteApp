@@ -32,13 +32,15 @@ public class  NotesHandler  {
     }
 
     public static void updateNote(int id, String newText) {
-        Note currentNote=allNotes.get(id);
-        currentNote.setText(newText);
+        DataBaseConnection db = new DataBaseConnection();
+        db.update(id,newText);
+
     }
 
 
     public static void deleteNote(int id){
-       allNotes.remove(id);
+        DataBaseConnection db = new DataBaseConnection();
+        db.deleteOne(id);
 
     }
 
