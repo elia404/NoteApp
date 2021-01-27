@@ -1,8 +1,7 @@
+
 package com.noteApp.ui;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class MainActivity extends JFrame {
 

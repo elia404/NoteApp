@@ -1,44 +1,28 @@
 package com.noteApp.be;
-import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class  NotesHandler  {
+    public static DataBaseConnection db=new DataBaseConnection();
 
-
-    public static  List<Note> getAllNotes() {
-        DataBaseConnection db=new DataBaseConnection();
+    public static  List<Note> getAllNotes() throws Exception {
         return (List<Note>) db.select();
-
-
     }
 
-    public static  Note getSingleNote(int id) {
-        DataBaseConnection db = new DataBaseConnection();
+    public static void getSingleNote(int id) throws ClassNotFoundException {
         Note n = db.selectOne();
         n.setId(id);
-      return n;
     }
 
-    public static void addNote(String text) {
-        DataBaseConnection db = new DataBaseConnection();
+    public static void addNote(String text) throws ClassNotFoundException {
         db.insertNote(text);
-
-
     }
 
-    public static void updateNote(int id, String newText) {
-        DataBaseConnection db = new DataBaseConnection();
+    public static void updateNote(int id, String newText) throws ClassNotFoundException {
         db.update(id,newText);
-
     }
 
-
-    public static void deleteNote(int id){
-        DataBaseConnection db = new DataBaseConnection();
+    public static void deleteNote(int id) throws ClassNotFoundException {
         db.deleteOne(id);
-
     }
 
 }
