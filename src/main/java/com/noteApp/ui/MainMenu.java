@@ -60,11 +60,7 @@ class MainMenu extends JFrame {
             textPane.addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    try {
-                        NotesHandler.getSingleNote(n.getId());
-                    } catch (ClassNotFoundException classNotFoundException) {
-                        classNotFoundException.printStackTrace();
-                    }
+                    NotesHandler.getSingleNote(n.getId());
                     NewNote secondNote = new NewNote();
                     JButton deleteButton = new JButton("Delete");
                     deleteButton.addActionListener(e12 -> {
@@ -85,11 +81,8 @@ class MainMenu extends JFrame {
                     secondNote.noteTextArea.setText(n.getText());
                     secondNote.saveAs.addActionListener(e1 -> {
                         if (e1.getSource() == secondNote.saveAs) {
-                            try {
-                                NotesHandler.updateNote(n.getId(), secondNote.noteTextArea.getText());
-                            } catch (ClassNotFoundException c) {
-                                c.printStackTrace();
-                            }
+                            NotesHandler.updateNote(n.getId(), secondNote.noteTextArea.getText());
+                            ;
                             textPane.setText(secondNote.noteTextArea.getText());
                         }
                     });

@@ -42,11 +42,7 @@ public class NewNote {
         saveAs = new JButton("Save @ Close");
         saveAs.addActionListener(e -> {
             if (e.getSource() == saveAs) {
-                try {
-                    NotesHandler.addNote(noteTextArea.getText());
-                } catch (ClassNotFoundException c) {
-                    c.printStackTrace();
-                }
+                NotesHandler.addNote(noteTextArea.getText());
                 note.setVisible(false);
             }
         });

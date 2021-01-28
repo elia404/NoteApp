@@ -4,20 +4,20 @@ import java.util.List;
 public class  NotesHandler  {
     public static DataBaseConnection db=new DataBaseConnection();
 
-    public static  List<Note> getAllNotes() throws Exception {
+    public static  List<Note> getAllNotes(){
         return (List<Note>) db.select();
     }
 
-    public static void getSingleNote(int id) throws ClassNotFoundException {
+    public static void getSingleNote(int id){
         Note n = db.selectOne();
         n.setId(id);
     }
 
-    public static void addNote(String text) throws ClassNotFoundException {
+    public static void addNote(String text){
         db.insertNote(text);
     }
 
-    public static void updateNote(int id, String newText) throws ClassNotFoundException {
+    public static void updateNote(int id, String newText){
         db.update(id,newText);
     }
 
