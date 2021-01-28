@@ -11,18 +11,14 @@ public class DataBaseConnection {
     Statement stmt = null;
     int resultSet;
 
-    public List select() throws Exception {
-        ConnectionPool.setUpPool();
+    public List select() {
         try {
             Connection connection = ConnectionPool.getConnectionPool();
             stmt = connection.createStatement();
-            System.out.println("connected");
             ResultSet resultSet = stmt.executeQuery("select * from notes;");
             while (resultSet.next()) {
                int noteId = resultSet.getInt(Constants.ID_COL);
                 String  noteText = resultSet.getString(Constants.TEXT_COL);
-                System.out.printf("id = %s, text = %s", noteId, noteText);
-                System.out.println();
                 Note n = new Note(noteText);
                 n.setId(noteId);
                 allNotes.add(n);
@@ -36,8 +32,7 @@ public class DataBaseConnection {
         return allNotes;
     }
 
-    public Note selectOne() throws ClassNotFoundException {
-        ConnectionPool.setUpPool();
+    public Note selectOne()  {
         try {
             Connection connection = ConnectionPool.getConnectionPool();
             stmt = connection.createStatement();
@@ -58,8 +53,7 @@ public class DataBaseConnection {
         return new Note(noteText);
     }
 
-    public void insertNote(String text) throws ClassNotFoundException {
-        ConnectionPool.setUpPool();
+    public void insertNote(String text) {
         try {
             Connection connection = ConnectionPool.getConnectionPool();
             stmt = connection.createStatement();
@@ -72,22 +66,23 @@ public class DataBaseConnection {
         }
 
     }
-    public void update(int id, String newText) throws ClassNotFoundException {
-        ConnectionPool.setUpPool();
+    public void update(int id, String newText) {
         try {
            Connection connection = ConnectionPool.getConnectionPool();
             stmt = connection.createStatement();
-            String sql = "UPDATE public.notes SET text = '"+newText+"' WHERE id = '"+id+"'";
+            String sql = "UPDATE notes SET text = '"+newText+"' WHERE id = '"+id+"'";
+            stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             resultSet = stmt.executeUpdate(sql);
             stmt.close();
             connection.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
+
         }
+
     }
 
-    public void deleteOne(int id) throws ClassNotFoundException {
-        ConnectionPool.setUpPool();
+    public void deleteOne(int id) {
         try {
           Connection connection = ConnectionPool.getConnectionPool();
             stmt = connection.createStatement();
