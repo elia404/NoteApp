@@ -5,6 +5,7 @@ import com.noteApp.be.Constants;
 import com.noteApp.be.NotesHandler;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import javax.swing.JColorChooser;
 public class NewNote {
 
@@ -42,11 +43,15 @@ public class NewNote {
         saveAs = new JButton("Save @ Close");
         saveAs.addActionListener(e -> {
             if (e.getSource() == saveAs) {
-                NotesHandler.addNote(noteTextArea.getText());
+                try {
+                    NotesHandler.addNote(noteTextArea.getText());
+
+                } catch (SQLException | ClassNotFoundException t) {
+                    t.printStackTrace();
+                }
                 note.setVisible(false);
             }
         });
-
         cancel = new JButton("Cancel");
         cancel.addActionListener(e -> {
             if (e.getSource() == cancel) {

@@ -5,6 +5,7 @@ import com.noteApp.be.NotesHandler;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.List;
 
 class MainMenu extends JFrame {
@@ -22,9 +23,7 @@ class MainMenu extends JFrame {
         JButton newN = new JButton("New Note");
         newN.getPreferredSize();
         newN.setToolTipText("New Note");
-        newN.addActionListener(a -> {
-            newNoteAction(newN, a);
-        });
+        newN.addActionListener(a -> newNoteAction(newN, a));
         JButton myNotes = new JButton("Get Notes");
         myNotes.getPreferredSize();
         myNotes.addActionListener(e -> {
@@ -45,7 +44,7 @@ class MainMenu extends JFrame {
 
     }
 
-    private void textAction(JFrame menuFrame, JMenuBar menuBar) throws Exception {
+    private void textAction(JFrame menuFrame, JMenuBar menuBar) throws SQLException, ClassNotFoundException {
         List<Note> allNotes = NotesHandler.getAllNotes();
         for (Note n: allNotes) {
             JTextPane textPane = new JTextPane();
@@ -60,7 +59,11 @@ class MainMenu extends JFrame {
             textPane.addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    NotesHandler.getSingleNote(n.getId());
+                    try {
+                        NotesHandler.getSingleNote(n.getId());
+                    } catch (SQLException | ClassNotFoundException t) {
+                        t.printStackTrace();
+                    }
                     NewNote secondNote = new NewNote();
                     JButton deleteButton = new JButton("Delete");
                     deleteButton.addActionListener(e12 -> {
@@ -69,8 +72,9 @@ class MainMenu extends JFrame {
                             if (a == JOptionPane.YES_OPTION) {
                                 try {
                                     NotesHandler.deleteNote(n.getId());
-                                } catch (ClassNotFoundException c) {
-                                    c.printStackTrace();
+                                    secondNote.note.setVisible(false);
+                                } catch (SQLException | ClassNotFoundException t) {
+                                    t.printStackTrace();
                                 }
                                 secondNote.note.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                                 secondNote.note.setVisible(false);
@@ -81,8 +85,11 @@ class MainMenu extends JFrame {
                     secondNote.noteTextArea.setText(n.getText());
                     secondNote.saveAs.addActionListener(e1 -> {
                         if (e1.getSource() == secondNote.saveAs) {
-                            NotesHandler.updateNote(n.getId(), secondNote.noteTextArea.getText());
-                            ;
+                            try {
+                                NotesHandler.updateNote(n.getId(), secondNote.noteTextArea.getText());
+                            } catch (SQLException | ClassNotFoundException t) {
+                                t.printStackTrace();
+                            }
                             textPane.setText(secondNote.noteTextArea.getText());
                         }
                     });
