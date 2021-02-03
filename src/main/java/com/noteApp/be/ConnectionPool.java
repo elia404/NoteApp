@@ -2,7 +2,6 @@ package com.noteApp.be;
 
 import javax.sql.DataSource;
 
-import net.proteanit.sql.DbUtils;
 import org.apache.commons.dbcp.*;
 import org.apache.commons.pool.impl.GenericObjectPool;
 import java.sql.Connection;

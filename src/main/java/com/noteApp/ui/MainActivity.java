@@ -9,6 +9,7 @@ public class MainActivity extends JFrame {
         MainMenu mainMenu = new MainMenu();
         mainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
     }
 }
 

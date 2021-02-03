@@ -2,6 +2,7 @@ package com.noteApp.ui;
 
 
 import com.noteApp.be.Constants;
+import com.noteApp.be.Note;
 import com.noteApp.be.NotesHandler;
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +23,7 @@ public class NewNote {
     JMenu style;
     JMenuItem bColor;
     JMenuItem textColor;
+
 
     public NewNote() {
 
@@ -44,7 +46,9 @@ public class NewNote {
         saveAs.addActionListener(e -> {
             if (e.getSource() == saveAs) {
                 try {
-                    NotesHandler.addNote(noteTextArea.getText());
+                    Note n = new Note(noteTextArea.getText());
+                    NotesHandler.updateOrInsert(n.getId(),noteTextArea.getText());
+//                    NotesHandler.addNote(noteTextArea.getText());
 
                 } catch (SQLException | ClassNotFoundException t) {
                     t.printStackTrace();

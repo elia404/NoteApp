@@ -2,7 +2,7 @@ package com.noteApp.be;
 
 public class Note {
     private String text;
-    public int id;
+    private int id;
 
     public Note(String text) {
         this.text = text;

@@ -10,13 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataBaseConnection {
-    int noteId;
     String noteText;
     List<Note> allNotes = new ArrayList<>();
     Statement stmt = null;
     public static Connection connection;
     PreparedStatement preparedStmt = null;
-    public JTable notes;
+    JTable notes = new JTable();
 
     static {
         try {
@@ -30,13 +29,14 @@ public class DataBaseConnection {
     public List select(){
         try {
             stmt = connection.createStatement();
-            ResultSet resultSet = stmt.executeQuery("select * from notes;");
+            ResultSet resultSet = stmt.executeQuery("select * from public.notes;");
             while (resultSet.next()) {
                int noteId = resultSet.getInt(Constants.ID_COL);
                 String  noteText = resultSet.getString(Constants.TEXT_COL);
                 Note n = new Note(noteText);
                 n.setId(noteId);
                 allNotes.add(n);
+                allNotes.toArray();
 
             }
             resultSet.close();
@@ -52,7 +52,7 @@ public class DataBaseConnection {
             stmt = connection.createStatement();
             ResultSet resultSet = stmt.executeQuery("select * from notes where true;");
             while(resultSet.next()) {
-                noteId = resultSet.getInt(Constants.ID_COL);
+               int noteId = resultSet.getInt(Constants.ID_COL);
                 String  noteText = resultSet.getString(Constants.TEXT_COL);
                 Note n = new Note(noteText);
                 n.setId(noteId);
@@ -63,7 +63,6 @@ public class DataBaseConnection {
             stmt.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-//            updateTable();
         }
         return new Note(noteText);
     }
@@ -73,11 +72,13 @@ public class DataBaseConnection {
             stmt = connection.createStatement();
             String sql = "INSERT INTO public.notes(id, text) VALUES(default,'"+text+"')";
             int resultSet = stmt.executeUpdate(sql);
+
+            System.out.println(resultSet);
             stmt.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
-//        updateTable();
+
     }
     public void update(int id, String newText) {
         try {
@@ -113,16 +114,16 @@ public class DataBaseConnection {
 
     }
 
-//    private void updateTable(){
-//        try{
-//
-//            String sql = "select * from public.notes";
-//            preparedStmt = connection.prepareStatement(sql);
-//            ResultSet resultSet = preparedStmt.executeQuery();
-//            notes.setModel(DbUtils.resultSetToTableModel(resultSet));
-//
-//        } catch (SQLException t) {
-//            System.err.println(t.getClass().getName() + ": " + t.getMessage());
-//        }
-//    }
+    /*private void updateTable(){
+        try{
+
+            String sql = "select * from public.notes";
+            preparedStmt = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStmt.executeQuery();
+            this.notes.setModel(DbUtils.resultSetToTableModel(resultSet));
+
+        } catch (SQLException t) {
+            System.err.println(t.getClass().getName() + ": " + t.getMessage());
+        }
+    }*/
 }

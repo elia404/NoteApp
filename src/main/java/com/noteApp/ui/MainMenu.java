@@ -15,36 +15,55 @@ class MainMenu extends JFrame {
         JFrame menuFrame = new JFrame("Welcome Aboard");
         menuFrame.setSize(500, 500);
         menuFrame.setLayout(new FlowLayout());
+        JPanel panelCont = new JPanel();
+        menuFrame.add(panelCont,BorderLayout.CENTER);
         JMenuBar menuBar = new JMenuBar();
-        JPanel upperButtons = new JPanel();
-        upperButtons.getPreferredSize();
-        JPanel lowerButtonsPanel = new JPanel();
-        lowerButtonsPanel.getPreferredSize();
         JButton newN = new JButton("New Note");
         newN.getPreferredSize();
         newN.setToolTipText("New Note");
-        newN.addActionListener(a -> newNoteAction(newN, a));
-        JButton myNotes = new JButton("Get Notes");
-        myNotes.getPreferredSize();
-        myNotes.addActionListener(e -> {
+        newN.addActionListener(a ->
+                newNoteAction(newN, a));
+
+        JButton getNotes = new JButton("Get Notes");
+        JButton deleteAll = new JButton("Delete All");
+        menuBar.add(newN);
+        menuBar.add(getNotes);
+        menuBar.add(deleteAll);
+        menuFrame.setJMenuBar(menuBar);
+        menuFrame.add(panelCont,BorderLayout.CENTER);
+        getNotes.getPreferredSize();
+
+        getNotes.addActionListener(e -> {
             try {
-                textAction(menuFrame, menuBar);
-            } catch (Exception exception) {
-                exception.printStackTrace();
+
+                getNotes(menuFrame, menuBar,panelCont);
+
+            } catch (Exception f) {
+                System.err.println(f.getClass().getName() + ": " + f.getMessage());
             }
         });
-        JButton sharedOnes = new JButton("Shared Ones");
-        menuBar.add(newN);
-        menuBar.add(myNotes);
-        menuBar.add(sharedOnes);
+
+        deleteAll.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                panelCont.setVisible(false);
+                panelCont.removeAll();
+                panelCont.revalidate();
+                panelCont.repaint();
+                panelCont.setVisible(true);
+
+                panelCont.getUI();
+            }
+        });
         menuFrame.setJMenuBar(menuBar);
         menuFrame.setVisible(true);
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        menuFrame.setLocationRelativeTo(null); // puts the program on the center of the screen
+        menuFrame.setLocationRelativeTo(null);
 
     }
 
-    private void textAction(JFrame menuFrame, JMenuBar menuBar) throws SQLException, ClassNotFoundException {
+    public void getNotes(JFrame menuFrame, JMenuBar menuBar, JPanel panelCont) throws SQLException, ClassNotFoundException { removeAll();
         List<Note> allNotes = NotesHandler.getAllNotes();
         for (Note n: allNotes) {
             JTextPane textPane = new JTextPane();
@@ -54,16 +73,12 @@ class MainMenu extends JFrame {
             textPane.setEditable(false);
             textPane.setToolTipText(n.getId() + "");
             textPane.setText(n.getText());
-            System.out.println(n.getId());
-            System.out.println(textPane.getToolTipText());
+            panelCont.add(textPane);
+
             textPane.addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    try {
-                        NotesHandler.getSingleNote(n.getId());
-                    } catch (SQLException | ClassNotFoundException t) {
-                        t.printStackTrace();
-                    }
+                    NotesHandler.getSingleNote(n.getId());
                     NewNote secondNote = new NewNote();
                     JButton deleteButton = new JButton("Delete");
                     deleteButton.addActionListener(e12 -> {
@@ -74,7 +89,7 @@ class MainMenu extends JFrame {
                                     NotesHandler.deleteNote(n.getId());
                                     secondNote.note.setVisible(false);
                                 } catch (SQLException | ClassNotFoundException t) {
-                                    t.printStackTrace();
+                                    System.err.println(t.getClass().getName() + ": " + t.getMessage());
                                 }
                                 secondNote.note.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                                 secondNote.note.setVisible(false);
@@ -86,9 +101,10 @@ class MainMenu extends JFrame {
                     secondNote.saveAs.addActionListener(e1 -> {
                         if (e1.getSource() == secondNote.saveAs) {
                             try {
-                                NotesHandler.updateNote(n.getId(), secondNote.noteTextArea.getText());
+                                NotesHandler.updateOrInsert(n.getId(), secondNote.noteTextArea.getText());
+
                             } catch (SQLException | ClassNotFoundException t) {
-                                t.printStackTrace();
+                                System.err.println(t.getClass().getName() + ": " + t.getMessage());
                             }
                             textPane.setText(secondNote.noteTextArea.getText());
                         }
@@ -111,15 +127,21 @@ class MainMenu extends JFrame {
                 }
             });
 
+            menuFrame.add(panelCont,BorderLayout.CENTER);
             menuFrame.setJMenuBar(menuBar);
-            menuFrame.add(textPane);
             menuFrame.pack();
             menuFrame.setVisible(true);
+
         }
+
+
+
+
     }
     private void newNoteAction(JButton newN, java.awt.event.ActionEvent a) {
         if (a.getSource() == newN) {
             NewNote firstNote = new NewNote();
+
         }
     }
 }
