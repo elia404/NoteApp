@@ -24,7 +24,6 @@ public class NewNote {
     JMenuItem bColor;
     JMenuItem textColor;
 
-
     public NewNote() {
 
         note = new JFrame();
@@ -48,8 +47,6 @@ public class NewNote {
                 try {
                     Note n = new Note(noteTextArea.getText());
                     NotesHandler.updateOrInsert(n.getId(),noteTextArea.getText());
-//                    NotesHandler.addNote(noteTextArea.getText());
-
                 } catch (SQLException | ClassNotFoundException t) {
                     t.printStackTrace();
                 }
@@ -83,7 +80,6 @@ public class NewNote {
         });
 
         String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-
         JComboBox fontBox = new JComboBox(fonts);
         fontBox.addActionListener(e -> {
             if (e.getSource() == fontBox) {
@@ -107,7 +103,6 @@ public class NewNote {
         note.setVisible(true);
 
     }
-
 
 
 }

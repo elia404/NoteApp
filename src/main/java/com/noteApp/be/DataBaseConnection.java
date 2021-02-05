@@ -1,10 +1,6 @@
 package com.noteApp.be;
 
-import net.proteanit.sql.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
-
-
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +9,7 @@ public class DataBaseConnection {
     String noteText;
     List<Note> allNotes = new ArrayList<>();
     Statement stmt = null;
-    public static Connection connection;
-    PreparedStatement preparedStmt = null;
-    JTable notes = new JTable();
+    static Connection connection;
 
     static {
         try {
@@ -37,7 +31,6 @@ public class DataBaseConnection {
                 n.setId(noteId);
                 allNotes.add(n);
                 allNotes.toArray();
-
             }
             resultSet.close();
             stmt.close();
@@ -57,7 +50,6 @@ public class DataBaseConnection {
                 Note n = new Note(noteText);
                 n.setId(noteId);
                 return n;
-
             }
             resultSet.close();
             stmt.close();
@@ -72,7 +64,6 @@ public class DataBaseConnection {
             stmt = connection.createStatement();
             String sql = "INSERT INTO public.notes(id, text) VALUES(default,'"+text+"')";
             int resultSet = stmt.executeUpdate(sql);
-
             System.out.println(resultSet);
             stmt.close();
         } catch (Exception e) {
@@ -90,7 +81,6 @@ public class DataBaseConnection {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
 
-
     }
 
     public void deleteOne(int id){
@@ -98,32 +88,10 @@ public class DataBaseConnection {
             QueryRunner qr = new QueryRunner();
             String sql = "DELETE FROM public.notes WHERE id= '"+id+"'";
             int num = qr.update(connection,sql);
-//            stmt = connection.createStatement();
-//            System.out.println("clala");
-//            ResultSet resultSet = stmt.executeQuery("DELETE FROM public.notes WHERE id= '"+id+"'" );
-//            while (resultSet.next()) {
-//                Note n = new Note(noteText);
-//                n.getId();
-//
-//            }
-//            stmt.close();
-//            resultSet.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
 
     }
 
-    /*private void updateTable(){
-        try{
-
-            String sql = "select * from public.notes";
-            preparedStmt = connection.prepareStatement(sql);
-            ResultSet resultSet = preparedStmt.executeQuery();
-            this.notes.setModel(DbUtils.resultSetToTableModel(resultSet));
-
-        } catch (SQLException t) {
-            System.err.println(t.getClass().getName() + ": " + t.getMessage());
-        }
-    }*/
 }

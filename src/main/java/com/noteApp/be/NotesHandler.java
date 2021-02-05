@@ -5,6 +5,7 @@ import java.util.List;
 public class  NotesHandler  {
     public static DataBaseConnection  db=  new DataBaseConnection();
 
+
     @SuppressWarnings("unchecked")
     public static  List<Note> getAllNotes(){
         return (List<Note>) db.select();
@@ -24,7 +25,6 @@ public class  NotesHandler  {
     public static void updateNote(int id, String newText) throws SQLException, ClassNotFoundException {
       db.update(id,newText);
 
-
     }
 
     public static void deleteNote(int id) throws SQLException, ClassNotFoundException {
@@ -34,8 +34,12 @@ public class  NotesHandler  {
     public static void updateOrInsert(int id, String newText) throws SQLException, ClassNotFoundException {
         if (id==0){
            db.insertNote(newText);
+
         }else{
             db.update(id, newText);
+
         }
     }
+
+
 }

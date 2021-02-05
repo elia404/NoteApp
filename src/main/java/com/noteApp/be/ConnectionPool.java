@@ -1,7 +1,6 @@
 package com.noteApp.be;
 
 import javax.sql.DataSource;
-
 import org.apache.commons.dbcp.*;
 import org.apache.commons.pool.impl.GenericObjectPool;
 import java.sql.Connection;
@@ -17,7 +16,6 @@ public  class ConnectionPool {
     @SuppressWarnings("unused")
      public  static DataSource setUpPool() throws ClassNotFoundException {
             Class.forName(JDBC_DRIVER);
-
             gPool.setMaxActive(9);
             ConnectionFactory cf = new DriverManagerConnectionFactory(JDBC_DB_URL, JDBC_USER, JDBC_PASS);
             PoolableConnectionFactory pcf = new PoolableConnectionFactory(cf, gPool,null , null, false, true);
@@ -27,9 +25,6 @@ public  class ConnectionPool {
         public  static Connection getConnectionPool() throws ClassNotFoundException, SQLException {
        DataSource dataSource= ConnectionPool.setUpPool();
             return (dataSource.getConnection());
+        }
 
-        }
-        public static GenericObjectPool gP(){
-        return gPool;
-        }
     }
