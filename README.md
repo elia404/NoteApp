@@ -1,13 +1,13 @@
 # NoteApp
 **Note App is  for organizing your notes and thoughts in one place .**
 
-##Installation
+#Installation
 use git to load Note App.
 `git clone`
-###Dependencies
+#Dependencies
 **maven pom.xml**
 
-###Run
+#Run
 run main Activity to compile.
 `
 
